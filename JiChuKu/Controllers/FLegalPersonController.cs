@@ -68,7 +68,23 @@ namespace JiChuKu.Controllers
             var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
             return Ok(ReturnStd.Success(fLegalPersonDto));
         }
-       [HttpDelete]
+
+        [HttpGet("GetFlegalPersonAll")]
+        public IActionResult GetFLegalPersonAll(string id, bool includeData = false)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return NotFound(ReturnStd.Error("id不能为空！"));
+            }
+            var product = _fLegalPerson.GetById(id, includeData);
+            if (product == null)
+            {
+                return NotFound(ReturnStd.Error(string.Format("没有查询到 {0} 数据！", id)));
+            }
+            var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
+            return Ok(ReturnStd.Success(fLegalPersonDto));
+        }
+        [HttpDelete]
         public IActionResult DeleteFLegalPerson(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
