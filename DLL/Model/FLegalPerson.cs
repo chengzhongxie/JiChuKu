@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DAL.Bases;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace DAL.Model
     /// <summary>
     /// 法人基本数据
     /// </summary>
-    public class FLegalPerson : FatherClass
+    public class FLegalPerson : EntityBase
     {
         /// <summary>
         /// 企业名称

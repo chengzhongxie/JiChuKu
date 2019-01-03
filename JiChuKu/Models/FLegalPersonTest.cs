@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using DAL.Bases;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace JiChuKu.Models
     /// <summary>
     /// 法人基本数据
     /// </summary>
-    public class FLegalPersonTest : FatherClassTest
+    public class FLegalPersonTest : EntityBase
     {
         /// <summary>
         /// 企业名称

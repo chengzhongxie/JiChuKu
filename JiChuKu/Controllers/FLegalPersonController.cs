@@ -1,13 +1,19 @@
 ﻿using AutoMapper;
 using Common;
 using DAL.Dtos;
+using DAL.IRepositories;
 using DAL.Model;
+using DAL.Pagination;
 using FluentValidation;
 using IBLL;
 using JiChuKu.Common;
 using JiChuKu.Models;
+using JiChuKu.Models.PropertyMappings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace JiChuKu.Controllers
 {
@@ -19,12 +25,15 @@ namespace JiChuKu.Controllers
         private IMapper _mapper { get; set; }//类映射
         private readonly IFLegalPersonRepository _fLegalPerson;
         private IHttpContextAccessor _accessor;//获取ip
-        public FLegalPersonController(IValidator<FLegalPersonTest> validator, IMapper mapper, IHttpContextAccessor accessor, IFLegalPersonRepository fLegalPerson)
+
+        private readonly IEnhancedRepository<FLegalPerson> _vehicleRepository;
+        public FLegalPersonController(IValidator<FLegalPersonTest> validator, IMapper mapper, IHttpContextAccessor accessor, IFLegalPersonRepository fLegalPerson, IEnhancedRepository<FLegalPerson> vehicleRepository)
         {
             _validator = validator;
             _mapper = mapper;
             _accessor = accessor;
             _fLegalPerson = fLegalPerson;
+            _vehicleRepository = vehicleRepository;
         }
 
         [HttpPost]
@@ -54,36 +63,41 @@ namespace JiChuKu.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFLegalPerson(string id, bool includeData = false)
+        public async Task<IActionResult> GetFLegalPerson(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound(ReturnStd.Error("id不能为空！"));
             }
-            var product = _fLegalPerson.GetById(id, includeData);
-            if (product == null)
+            // var product = _fLegalPerson.GetById(id, includeData);
+            var item = await _vehicleRepository.GetByIdAsync(id);
+            if (item == null)
             {
                 return NotFound(ReturnStd.Error(string.Format("没有查询到 {0} 数据！", id)));
             }
-            var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
-            return Ok(ReturnStd.Success(fLegalPersonDto));
+            //var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
+            return Ok(ReturnStd.Success(item));
         }
 
-        [HttpGet("GetFlegalPersonAll")]
-        public IActionResult GetFLegalPersonAll(string id, bool includeData = false)
+        [HttpPost("GetFlegalPersonAll")]
+        public async Task<IActionResult> GetFLegalPersonAll([FromBody]QueryViewModel parameters)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            var propertyMapping = new FLegalPersonPropertyMapping();
+            PaginatedList<FLegalPerson> pagedList;
+            if (string.IsNullOrEmpty(parameters.SearchTerm))
             {
-                return NotFound(ReturnStd.Error("id不能为空！"));
+                pagedList = await _vehicleRepository.GetPaginatedAsync(parameters, propertyMapping);
             }
-            var product = _fLegalPerson.GetById(id, includeData);
-            if (product == null)
+            else
             {
-                return NotFound(ReturnStd.Error(string.Format("没有查询到 {0} 数据！", id)));
+                pagedList = await _vehicleRepository.GetPaginatedAsync(parameters, propertyMapping,
+                    x => x.Id.Contains(parameters.SearchTerm) || x.FCreditCode.Contains(parameters.SearchTerm));
             }
-            var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
-            return Ok(ReturnStd.Success(fLegalPersonDto));
+           // var vehicleVms = Mapper.Map<IEnumerable<FLegalPersonTest>>(pagedList);
+
+            return Ok(pagedList);
         }
+
         [HttpDelete]
         public IActionResult DeleteFLegalPerson(string id)
         {
@@ -92,10 +106,10 @@ namespace JiChuKu.Controllers
                 return NotFound(ReturnStd.Error("id不能为空！"));
             }
             int product = _fLegalPerson.Delete(id);
-            if (product <0)
+            if (product < 0)
             {
                 return NotFound(ReturnStd.Error(string.Format("没有查询到 {0} 数据！", id)));
-            }          
+            }
             return Ok(ReturnStd.Success(Suggestion.DeleteSucceed));
         }
     }

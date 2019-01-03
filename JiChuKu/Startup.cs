@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.ServiceCollection;
 using DAL.Entities;
+using DAL.ServiceCollection;
 using JiChuKu.ServiceCollection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,7 @@ namespace JiChuKu
             //services.AddAutoMapper();//添加对AutoMapper的支持
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();//获取ip地址
             services.AddSingleton<IMapper>(sp => _mapperConfiguration.CreateMapper());
+            services.AddDLLService();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

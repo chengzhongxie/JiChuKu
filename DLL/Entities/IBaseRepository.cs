@@ -24,7 +24,7 @@ namespace DAL.Entities
         /// <param name="orderbyLambda">排序条件</param>
         /// <param name="isAsc">是否升序</param>
         /// <returns>IQueryable 泛型集合</returns>
-        IQueryable<T> LoadPageItems<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T, bool>> whereLambda, Expression<Func<T, Tkey>> orderbyLambda, bool isAsc);
+        IQueryable<T> LoadPageItems<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T, bool>> whereLambda, Func<T, Tkey> orderbyLambda, bool isAsc);
         /// <summary>
         /// 创建
         /// </summary>
