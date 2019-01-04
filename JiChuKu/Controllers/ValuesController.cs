@@ -6,7 +6,7 @@ using IBLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace JiChuKu.Controllers
+namespace APP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

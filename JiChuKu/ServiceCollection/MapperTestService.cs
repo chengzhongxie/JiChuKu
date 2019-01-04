@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using DAL.Dtos;
 using DAL.Model;
-using JiChuKu.Models;
+using APP.Models;
 using System;
 
-namespace JiChuKu.ServiceCollection
+namespace APP.ServiceCollection
 {
     public class MapperTestService : Profile
     {

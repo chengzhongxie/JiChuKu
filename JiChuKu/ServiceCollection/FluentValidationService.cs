@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using JiChuKu.Models;
+using APP.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiChuKu.ServiceCollection
+namespace APP.ServiceCollection
 {
     public static class FluentValidationService
     {

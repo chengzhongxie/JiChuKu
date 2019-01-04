@@ -1,21 +1,18 @@
-﻿using AutoMapper;
+﻿using APP.Common;
+using AutoMapper;
 using Common;
-using DAL.Dtos;
 using DAL.IRepositories;
 using DAL.Model;
 using DAL.Pagination;
 using FluentValidation;
 using IBLL;
-using JiChuKu.Common;
-using JiChuKu.Models;
-using JiChuKu.Models.PropertyMappings;
+using APP.Models;
+using APP.Models.PropertyMappings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiChuKu.Controllers
+namespace APP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

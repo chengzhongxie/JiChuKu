@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiChuKu.Common
+namespace APP.Common
 {
     public static class Suggestion
     {

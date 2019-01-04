@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiChuKu.Models
+namespace APP.Models
 {
     /// <summary>
     /// 失信被执行人F集合

@@ -2,7 +2,7 @@
 using BLL.ServiceCollection;
 using DAL.Entities;
 using DAL.ServiceCollection;
-using JiChuKu.ServiceCollection;
+using APP.ServiceCollection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace JiChuKu
+namespace APP
 {
     // Development（开发）
     //Staging（预演）

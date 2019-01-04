@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiChuKu.Models
+namespace APP.Models
 {
     /// <summary>
     /// 行政奖励F集合

@@ -3,7 +3,7 @@ using DAL.Pagination;
 using System;
 using System.Collections.Generic;
 
-namespace JiChuKu.Models.PropertyMappings
+namespace APP.Models.PropertyMappings
 {
     public class FLegalPersonPropertyMapping : PropertyMapping
     {

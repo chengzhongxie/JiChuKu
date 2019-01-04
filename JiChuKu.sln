@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiChuKu", "JiChuKu\JiChuKu.csproj", "{ADF70C15-FAFC-4894-B937-A3C6BBD2536A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APP", "JiChuKu\APP.csproj", "{ADF70C15-FAFC-4894-B937-A3C6BBD2536A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBLL", "IBLL\IBLL.csproj", "{4CD61B3F-F9B8-40E5-B4F4-3F79559FDCFE}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DLL\DAL.csproj", "{3533482A-CA3F-4A30-B0D1-5385968EE0E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{AAB36CF1-1F96-4153-92A3-0C34D066BE36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{AAB36CF1-1F96-4153-92A3-0C34D066BE36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
