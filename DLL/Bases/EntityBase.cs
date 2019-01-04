@@ -1,12 +1,11 @@
-﻿using DAL.Interfaces;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Bases
 {
-    public abstract class EntityBase : IEntityBase
+    public abstract class EntityBase 
     {
         /// <summary>
         /// id

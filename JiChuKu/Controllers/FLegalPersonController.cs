@@ -1,13 +1,10 @@
 ﻿using APP.Common;
+using APP.Models;
 using AutoMapper;
 using Common;
-using DAL.IRepositories;
 using DAL.Model;
-using DAL.Pagination;
 using FluentValidation;
 using IBLL;
-using APP.Models;
-using APP.Models.PropertyMappings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -23,14 +20,12 @@ namespace APP.Controllers
         private readonly IFLegalPersonRepository _fLegalPerson;
         private IHttpContextAccessor _accessor;//获取ip
 
-        private readonly IEnhancedRepository<FLegalPerson> _vehicleRepository;
-        public FLegalPersonController(IValidator<FLegalPersonTest> validator, IMapper mapper, IHttpContextAccessor accessor, IFLegalPersonRepository fLegalPerson, IEnhancedRepository<FLegalPerson> vehicleRepository)
+        public FLegalPersonController(IValidator<FLegalPersonTest> validator, IMapper mapper, IHttpContextAccessor accessor, IFLegalPersonRepository fLegalPerson)
         {
             _validator = validator;
             _mapper = mapper;
             _accessor = accessor;
             _fLegalPerson = fLegalPerson;
-            _vehicleRepository = vehicleRepository;
         }
 
         [HttpPost]
@@ -60,39 +55,25 @@ namespace APP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFLegalPerson(string id)
+        public async Task<IActionResult> GetFLegalPerson(string id, bool includeData)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound(ReturnStd.Error("id不能为空！"));
             }
-            // var product = _fLegalPerson.GetById(id, includeData);
-            var item = await _vehicleRepository.GetByIdAsync(id);
-            if (item == null)
+            var product = _fLegalPerson.GetById(id, includeData);
+            if (product == null)
             {
                 return NotFound(ReturnStd.Error(string.Format("没有查询到 {0} 数据！", id)));
             }
             //var fLegalPersonDto = _mapper.Map<FLegalPersonDto>(product);
-            return Ok(ReturnStd.Success(item));
+            return Ok(ReturnStd.Success(product));
         }
 
         [HttpPost("GetFlegalPersonAll")]
-        public async Task<IActionResult> GetFLegalPersonAll([FromBody]QueryViewModel parameters)
+        public async Task<IActionResult> GetFLegalPersonAll()
         {
-            var propertyMapping = new FLegalPersonPropertyMapping();
-            PaginatedList<FLegalPerson> pagedList;
-            if (string.IsNullOrEmpty(parameters.SearchTerm))
-            {
-                pagedList = await _vehicleRepository.GetPaginatedAsync(parameters, propertyMapping);
-            }
-            else
-            {
-                pagedList = await _vehicleRepository.GetPaginatedAsync(parameters, propertyMapping,
-                    x => x.Id.Contains(parameters.SearchTerm) || x.FCreditCode.Contains(parameters.SearchTerm));
-            }
-           // var vehicleVms = Mapper.Map<IEnumerable<FLegalPersonTest>>(pagedList);
-
-            return Ok(pagedList);
+            return Ok();
         }
 
         [HttpDelete]
